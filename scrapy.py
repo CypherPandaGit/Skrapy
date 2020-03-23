@@ -16,7 +16,7 @@ LOGIN_DATA = {
     '_csrf': csrf_token
 }
 
-login_req = s.post(URL + LOGIN_URL, headers = HEADERS, data = LOGIN_DATA)
+login_req = s.post(LOGIN_URL, headers = HEADERS, data = LOGIN_DATA)
 print(login_req.status_code)
 print(login_req.text[:500])
 
