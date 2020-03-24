@@ -18,28 +18,49 @@ form = {x.attrib["name"]: x.attrib["value"] for x in hidden_inputs}
 
 print(form)
 
-form['email'] = 'EMAIL'
-form['password'] = 'PASS'
-response = s.post('https://nakup.itesco.cz/groceries/cs-CZ/login?from=https%3A%2F%2Fnakup.itesco.cz%2Fgroceries%2Fcs-CZ%3F_ga%3D2.255516224.991395514.1584977092-2139990256.1584977092', data=form)
+form['email'] = 'EMAILHERE'
+form['password'] = 'PASSHERE'
+# response = s.post('https://nakup.itesco.cz/groceries/cs-CZ/login?from=https%3A%2F%2Fnakup.itesco.cz%2Fgroceries%2Fcs-CZ%3F_ga%3D2.255516224.991395514.1584977092-2139990256.1584977092', data=form)
+#
+#
+# print('-' * 20)
+# print('RESPONSE URL: ')
+# print(response.url)
+# print('STATUS CODE: ')
+# print(response.status_code)
+# print('-' * 20 + '\n')
+# print('RESPONSE COOKIES: ')
+# print(response.cookies.get_dict())
+# print('-' * 20 + '\n')
+#
+#
+# if response.status_code == 200:
+#     print('Oh boy, you are in!\n')
+
+def data_mining(date_list):
+    response = s.post(
+        'https://nakup.itesco.cz/groceries/cs-CZ/login?from=https%3A%2F%2Fnakup.itesco.cz%2Fgroceries%2Fcs-CZ%3F_ga%3D2.255516224.991395514.1584977092-2139990256.1584977092',
+        data=form)
+
+    print('-' * 20)
+    print('RESPONSE URL: ')
+    print(response.url)
+    print('STATUS CODE: ')
+    print(response.status_code)
+    print('-' * 20 + '\n')
+    print('RESPONSE COOKIES: ')
+    print(response.cookies.get_dict())
+    print('-' * 20 + '\n')
+
+    if response.status_code == 200:
+        print('Oh boy, you are in!\n')
 
 
-print('-' * 20)
-print('RESPONSE URL: ')
-print(response.url)
-print('STATUS CODE: ')
-print(response.status_code)
-print('-' * 20 + '\n')
-print('RESPONSE COOKIES: ')
-print(response.cookies.get_dict())
-print('-' * 20 + '\n')
 
-
-if response.status_code == 200:
-    print('Oh boy, you are in!\n')
-
-    response = s.get('https://nakup.itesco.cz/groceries/cs-CZ/slots/delivery',
+    response = s.get('https://nakup.itesco.cz/groceries/cs-CZ/slots/delivery/2020-{}?slotGroup=2'.format(date_list),
                      cookies=response.cookies.get_dict(), headers={'accept': 'application/json'})
     # response = s.get('https://nakup.itesco.cz/groceries/cs-CZ/slots/delivery/2020-03-31?slotGroup=2', cookies=response.cookies.get_dict(), headers={'accept': 'application/json'})
+
 
     if response.status_code == 200:
         print('Bruh, it looks good.\n')
@@ -60,8 +81,18 @@ if response.status_code == 200:
                     new_string = 'Available: {0}'.format(str(formated_date))
                     log_writer(new_string)
 
+    else:
+        print('Sorry, you messed up again... Bruh...')
+    return 'end'
 
-else:
-    print('Sorry, you messed up again... Bruh...')
 
-print(response.status_code)
+
+date_list = ['03-24', '03-31', '04-07', '04-14', '04-21']
+print(data_mining([0]))
+print(data_mining([1]))
+print(data_mining([2]))
+
+# else:
+#     print('Sorry, you messed up again... Bruh...')
+
+# print(response.status_code)
