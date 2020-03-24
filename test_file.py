@@ -12,13 +12,14 @@ form = {x.attrib["name"]: x.attrib["value"] for x in hidden_inputs}
 
 print(form)
 
-form['email'] = 'diviline@gmail.com'
-form['password'] = 'FVxvaVgirN%!77y'
+form['email'] = 'mail'
+form['password'] = 'heslo'
 response = s.post('https://nakup.itesco.cz/groceries/cs-CZ/login?from=https%3A%2F%2Fnakup.itesco.cz%2Fgroceries%2Fcs-CZ%3F_ga%3D2.255516224.991395514.1584977092-2139990256.1584977092', data=form)
 
 print(response.url)
 
-if 'Roman' in response.text:
-    print('True')
+if 'Dobrý den pane Měšťan' in response.text:
+    print('Oh boy, you are in!')
 else:
-    print('Sorry')
+    print('Sorry, you messed up again... Bruh...')
+
