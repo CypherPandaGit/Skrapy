@@ -1,2 +1,2 @@
 # Skrapy
-Web scraper
+Web scraper for itesco.cz
