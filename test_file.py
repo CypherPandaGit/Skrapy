@@ -28,8 +28,10 @@ def get_closest_tuesday(for_date):
 
 s = requests.session()
 
-login = s.get('https://nakup.itesco.cz/groceries/cs-CZ/login?from=https%3A%2F%2Fnakup.'
-              'itesco.cz%2Fgroceries%2Fcs-CZ%3F_ga%3D2.255516224.991395514.1584977092-2139990256.1584977092')
+login = s.get('https://nakup.itesco.cz/groceries/cs-CZ/'
+              'login?from=https%3A%2F%2Fnakup.itesco.cz'
+              '%2Fgroceries%2Fcs-CZ%3F_ga%3D2.255516224'
+              '.991395514.1584977092-2139990256.1584977092')
 login_html = lxml.html.fromstring(login.text)
 
 hidden_inputs = login_html.xpath(r'//form//input[@type="hidden"]')
@@ -37,10 +39,13 @@ form = {x.attrib["name"]: x.attrib["value"] for x in hidden_inputs}
 
 print(form)
 
-form['email'] = 'YOURMAILHERE'
-form['password'] = 'YOURPASSHERE'
-response = s.post('https://nakup.itesco.cz/groceries/cs-CZ/login?from=https%3A%2F%2Fnakup.'
-                  'itesco.cz%2Fgroceries%2Fcs-CZ%3F_ga%3D2.255516224.991395514.1584977092-2139990256.1584977092', data=form)
+form['email'] = 'diviline@gmail.com'
+form['password'] = 'FVxvaVgirN%!77y'
+response = s.post('https://nakup.itesco.cz/groceries/cs-CZ/'
+                  'login?from=https%3A%2F%2Fnakup.itesco.cz'
+                  '%2Fgroceries%2Fcs-CZ%3F_ga%3D2.255516224'
+                  '.991395514.1584977092-2139990256.1584977092',
+                  data=form)
 
 
 print('-' * 20)
@@ -60,8 +65,10 @@ if response.status_code == 200:
 
 def data_mining(date_list, response=response):
 
-    response = s.get('https://nakup.itesco.cz/groceries/cs-CZ/slots/delivery/{0}?slotGroup=2'.format(date_list),
-                     cookies=response.cookies.get_dict(), headers={'accept': 'application/json'})
+    response = s.get('https://nakup.itesco.cz/groceries/cs-CZ/slots/'
+                     'delivery/{0}?slotGroup=2'.format(date_list),
+                     cookies=response.cookies.get_dict(),
+                     headers={'accept': 'application/json'})
 
     if response.status_code == 200:
         print('Bruh, it looks good.\n')
@@ -74,7 +81,7 @@ def data_mining(date_list, response=response):
         for x in slots:
             # print(x['status'])
             if x['status'] != 'UnAvailable':
-                # If AVAILABLE send mail bruh. Presto! Yeah and put the data in my TXT file.
+                # If AVAILABLE send mail bruh. Presto!
                 mined_date = x['start']
                 formated_date = mined_date[0:10] + ', ' + mined_date[10:]
 
