@@ -39,8 +39,8 @@ form = {x.attrib["name"]: x.attrib["value"] for x in hidden_inputs}
 
 print(form)
 
-form['email'] = 'diviline@gmail.com'
-form['password'] = 'FVxvaVgirN%!77y'
+form['email'] = 'MAILHERE'
+form['password'] = 'PASSHERE'
 response = s.post('https://nakup.itesco.cz/groceries/cs-CZ/'
                   'login?from=https%3A%2F%2Fnakup.itesco.cz'
                   '%2Fgroceries%2Fcs-CZ%3F_ga%3D2.255516224'
